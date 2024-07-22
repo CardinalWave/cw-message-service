@@ -1,5 +1,4 @@
 import pytest
-import json
 from datetime import datetime
 from sqlalchemy import text
 from src.infra.db.settings.connection import DBConnectionHandler
