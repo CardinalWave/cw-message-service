@@ -1,19 +1,23 @@
-from datetime import datetime
-from typing import Dict
+import pytest
 from src.data.use_cases.messages.message_manager import MessageManager
 from src.test.infra.db.mocks.message_repository import MessageRepositorySpy
+from src.test.data.mocks.message_publish_mock import MessagePublishSpy
+from src.domain.models.session import Session
 
 
-def test_inbox():
-    mock_group_id = "a1a9f26c-514f-41f0-9df0-2c8eff8fd456"
+@pytest.fixture
+def mock_session():
+    return Session(session_id="5259d7df-c0f7-4729-879f-17d1f91c6100",
+                   group_id="a1a9f26c-514f-41f0-9df0-2c8eff8fd456",
+                   device="esp8266_01",
+                   username="Test1")
 
+
+def test_inbox(mock_session):
+
+    message_publish = MessagePublishSpy()
     repository = MessageRepositorySpy()
-    use_case = MessageManager(message_repository=repository)
-    response = use_case.inbox(group_id=mock_group_id)
+    use_case = MessageManager(message_repository=repository, message_publish=message_publish)
+    response = use_case.inbox(mock_session)
 
-    assert response is not None
-    assert len(response) > 0
-    assert type(response) is list
-    assert response.__getitem__(0).get('group_id') is not None
-    assert response.__getitem__(0).get('send_time') is not None
-
+    assert response is None

@@ -1,4 +1,3 @@
-import json
 from src.domain.models.message import Message
 from src.infra.db.entities.message import Messages as MessagesEntity
 from src.infra.db.interfaces.message_repository import MessageRepositoryInterface
@@ -14,7 +13,7 @@ class MessageRepository(MessageRepositoryInterface):
                 message_entity = (
                     database.session
                     .query(MessagesEntity)
-                    .filter(group_id.title == group_id)
+                    .filter(MessagesEntity.group_id == group_id)
                     .all()
                 )
                 return message_entity
