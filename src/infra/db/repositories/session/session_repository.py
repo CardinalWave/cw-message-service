@@ -22,6 +22,23 @@ class SessionRepository(SessionRepositoryInterface):
                 database.session.rollback()
                 raise InternalServerError(str(e)) from e
 
+    def delete_session(self, session_id: str):
+        with DBConnectionHandler() as database:
+            try:
+                session = (
+                    database.session
+                    .query(SessionsEntity)
+                    .filter(SessionsEntity.session_id == session_id)
+                    .first()
+                )
+
+                if session:
+                    database.session.delete(session)
+                    database.session.commit()
+            except Exception as e:
+                database.session.rollback()
+                raise InternalServerError(str(e)) from e
+
     def list_sessions(self) -> list[SessionsEntity]:
         with DBConnectionHandler() as database:
             try:

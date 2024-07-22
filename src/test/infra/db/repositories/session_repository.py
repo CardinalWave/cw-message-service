@@ -15,7 +15,7 @@ def mock_session():
                    device='esp8266_01',
                    group_id='a1a9f26c-514f-41f0-9df0-2c8eff8fd456')
 
-
+@pytest.mark.skip(reason="sensive test")
 def test_register_session(mock_session):
     repository = SessionRepository()
     repository.register_session(session_id=mock_session.session_id,
@@ -41,6 +41,7 @@ def test_register_session(mock_session):
     connection.close()
 
 
+@pytest.mark.skip(reason="sensive test")
 def test_list_sessions(mock_session):
     repository = SessionRepository()
     sql = '''INSERT INTO

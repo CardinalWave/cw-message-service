@@ -20,6 +20,14 @@ class SessionManager(SessionManagerInterface):
         except InternalServerError as e:
             raise InternalServerError(str(e)) from e
 
+    def delete_session(self, session: Session):
+        try:
+            self.__session_repository.delete_session(session.session_id)
+        except BadRequestError as e:
+            raise BadRequestError(str(e)) from e
+        except InternalServerError as e:
+            raise InternalServerError(str(e)) from e
+
     def list_current_sessions(self, group_id: str) -> list[Session]:
         sessions_entity = self.__session_repository.list_sessions()
         try:
@@ -37,9 +45,10 @@ class SessionManager(SessionManagerInterface):
     def find_session(self, session_id: str) -> Session:
         try:
             session_entity = self.__session_repository.select_session(session_id)
-            return Session(session_id=session_entity.session_id,
-                           group_id=session_entity.group_id,
-                           username=session_entity.username,
-                           device=session_entity.device)
+            session = Session(session_id=session_entity.session_id,
+                              group_id=session_entity.group_id,
+                              username=session_entity.username,
+                              device=session_entity.device)
+            return session
         except Exception as e:
             raise NotFoundError(str(e)) from e

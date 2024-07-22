@@ -7,7 +7,7 @@ class SessionManagerSpy(SessionManagerInterface):
     def register_session(self, session: Session): pass
 
     def find_session(self, session_id: str) -> Session:
-        if session_id is "session_idkmadmadada":
+        if session_id == "session_idkmadmadada":
             return Session(session_id="session_idkmadmadada",
                            username="Test1",
                            group_id="a1a9f26c-514f-41f0-9df0-2c8eff8fd456",
@@ -24,3 +24,5 @@ class SessionManagerSpy(SessionManagerInterface):
                             device="esp8266_01")
                     ]
         return sessions
+
+    def delete_session(self, session: Session): pass

@@ -16,6 +16,8 @@ class SessionRepositorySpy(SessionRepositoryInterface):
                          username: str,
                          group_id: str): pass
 
+    def delete_session(self, session_id: str): pass
+
     def list_sessions(self) -> list[SessionsEntity]:
         return [SessionsEntity(username='Test1',
                                session_id='session_idkmadmadada',
