@@ -21,15 +21,16 @@ class SendController(ControllerInterface):
                           group_id='')
         payload = http_request.body.get('payload')
         send_time = datetime.now()
+        author = http_request.body.get('user')
         message_id = str(uuid1())
         message = Message(message_id=message_id,
                           group_id='',
                           send_time=send_time,
-                          payload=payload)
-        response = self.__use_case.user_send(session=session,
-                                             message=message)
+                          payload=payload,
+                          author=author)
+        self.__use_case.user_send(session=session, message=message)
 
         return HttpResponse(
             status_code=200,
-            body={"payload": response}
+            body={}
         )

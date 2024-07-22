@@ -34,11 +34,7 @@ def test_send(mock_session, mock_message):
                     session_manager=session_manager)
     response = use_case.user_send(message=mock_message, session=mock_session)
 
-    assert response is not None
-    assert response.get('group_id') is mock_message.group_id
-    assert response.get('send_time') is mock_message.send_time
-    assert response.get('payload') is mock_message.payload
-
+    assert response is None
 
 def test_send_not_found_session(mock_session, mock_message):
     mock_session.username = "Test2"
