@@ -15,10 +15,14 @@ class JoinController(ControllerInterface):
         username = http_request.body.get('username')
         session_id = http_request.body.get('session_id')
         device = http_request.body.get('device')
-        session = Session(session_id=session_id, device=device, username=username, group_id=group_id)
-        response = self.__use_case.user_join(session=session)
+        session = Session(session_id=session_id,
+                          device=device,
+                          username=username,
+                          group_id=group_id)
+
+        self.__use_case.user_join(session=session)
 
         return HttpResponse(
             status_code=200,
-            body={"payload": response}
+            body={}
         )

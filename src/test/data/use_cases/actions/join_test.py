@@ -19,4 +19,4 @@ def test_join(mock_session):
     join = Join(message_manager=message_manager, session_manager=session_manager)
     response = join.user_join(session=mock_session)
 
-    assert response is not None
+    assert response is None
