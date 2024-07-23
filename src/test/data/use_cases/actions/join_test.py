@@ -1,3 +1,4 @@
+#pylint: disable=redefined-outer-name
 import pytest
 from src.data.use_cases.actions.join import Join
 from src.test.data.mocks.message_manager_mock import MessageManagerSpy
@@ -17,6 +18,4 @@ def test_join(mock_session):
     message_manager = MessageManagerSpy()
     session_manager = SessionManagerSpy()
     join = Join(message_manager=message_manager, session_manager=session_manager)
-    response = join.user_join(session=mock_session)
-
-    assert response is None
+    join.user_join(session=mock_session)

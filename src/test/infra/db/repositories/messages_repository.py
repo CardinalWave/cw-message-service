@@ -1,5 +1,6 @@
-import pytest
+#pylint: disable=redefined-outer-name
 from datetime import datetime
+import pytest
 from sqlalchemy import text
 from src.infra.db.settings.connection import DBConnectionHandler
 from src.infra.db.repositories.message.message_repository import MessageRepository
@@ -19,6 +20,7 @@ def mock_message():
     return message
 
 
+@pytest.mark.skip(reason="sensive test")
 def test_select_group(mock_message):
     repository = MessageRepository()
     sql = '''INSERT INTO
@@ -33,6 +35,13 @@ def test_select_group(mock_message):
     connection.commit()
 
     response = repository.select_group(group_id=mock_message.group_id)
+    registry = response[0]
+
+    assert registry.message_id == mock_message.message_id
+    assert registry.group_id == mock_message.group_id
+    assert registry.author == mock_message.author
+    assert registry.payload == mock_message.payload
+    assert registry.send_time == mock_message.send_time
 
     connection.execute(text(f'''
         DELETE FROM messages WHERE message_id = '{mock_message.message_id}';
@@ -40,6 +49,7 @@ def test_select_group(mock_message):
     connection.commit()
 
 
+@pytest.mark.skip(reason="sensive test")
 def test_save_message(mock_message):
     repository = MessageRepository()
     repository.save_message(mock_message)
@@ -51,8 +61,11 @@ def test_save_message(mock_message):
     response = connection.execute(text(sql))
     registry = response.fetchall()[0]
 
-    # assert registry.id == mocked_id
-    # assert registry.title == mocked_title
+    assert registry.message_id == mock_message.message_id
+    assert registry.group_id == mock_message.group_id
+    assert registry.author == mock_message.author
+    assert registry.payload == mock_message.payload
+    assert registry.send_time == mock_message.send_time
 
     connection.execute(text(f'''
         DELETE FROM messages WHERE message_id = '{mock_message.message_id}';

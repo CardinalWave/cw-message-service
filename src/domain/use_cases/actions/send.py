@@ -1,5 +1,4 @@
 from abc import ABC
-from typing import Dict
 from src.domain.models.session import Session
 from src.domain.models.message import Message
 

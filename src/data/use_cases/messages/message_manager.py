@@ -40,11 +40,6 @@ class MessageManager(MessageManagerInterface):
         except BadRequestError as e:
             raise BadRequestError(str(e)) from e
 
-    @staticmethod
-    def __filter_time(messages: list[Message]) -> list[Message]:
-        order_messages = sorted(messages, key=lambda x: x.send_time)
-        return messages
-
     def __archive_message(self, message: Message):
         try:
             message.message_id = uuid1()

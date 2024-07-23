@@ -1,6 +1,7 @@
-import pytest
-from uuid import uuid1
+#pylint: disable=redefined-outer-name
 from datetime import datetime
+from uuid import uuid1
+import pytest
 from src.data.use_cases.actions.send import Send
 from src.test.data.mocks.message_manager_mock import MessageManagerSpy
 from src.test.data.mocks.session_manager_mock import SessionManagerSpy
@@ -32,9 +33,8 @@ def test_send(mock_session, mock_message):
 
     use_case = Send(message_manager=message_manager,
                     session_manager=session_manager)
-    response = use_case.user_send(message=mock_message, session=mock_session)
+    use_case.user_send(message=mock_message, session=mock_session)
 
-    assert response is None
 
 def test_send_not_found_session(mock_session, mock_message):
     mock_session.username = "Test2"

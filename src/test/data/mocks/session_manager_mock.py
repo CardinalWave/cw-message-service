@@ -12,6 +12,7 @@ class SessionManagerSpy(SessionManagerInterface):
                            username="Test1",
                            group_id="a1a9f26c-514f-41f0-9df0-2c8eff8fd456",
                            device="esp8266_01")
+        return Session(session_id="", group_id="", username="", device="")
 
     def list_current_sessions(self, group_id: str) -> list[Session]:
         sessions = [Session(session_id="session_idkmadmadada",

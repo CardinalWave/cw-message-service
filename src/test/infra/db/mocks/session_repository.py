@@ -10,6 +10,7 @@ class SessionRepositorySpy(SessionRepositoryInterface):
                                   session_id='session_idkmadmadada',
                                   device='esp8266_01',
                                   group_id='a1a9f26c-514f-41f0-9df0-2c8eff8fd456')
+        return SessionsEntity()
 
     def register_session(self, session_id: str,
                          device: str,

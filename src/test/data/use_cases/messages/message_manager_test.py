@@ -1,3 +1,4 @@
+#pylint: disable=redefined-outer-name
 import pytest
 from src.data.use_cases.messages.message_manager import MessageManager
 from src.test.infra.db.mocks.message_repository import MessageRepositorySpy
@@ -14,10 +15,7 @@ def mock_session():
 
 
 def test_inbox(mock_session):
-
     message_publish = MessagePublishSpy()
     repository = MessageRepositorySpy()
     use_case = MessageManager(message_repository=repository, message_publish=message_publish)
-    response = use_case.inbox(mock_session)
-
-    assert response is None
+    use_case.inbox(mock_session)

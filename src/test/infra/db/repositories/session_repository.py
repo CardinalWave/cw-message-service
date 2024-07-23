@@ -1,3 +1,4 @@
+#pylint: disable=redefined-outer-name
 import pytest
 from sqlalchemy import text
 from src.infra.db.repositories.session.session_repository import SessionRepository
@@ -64,21 +65,3 @@ def test_list_sessions(mock_session):
     '''))
     connection.commit()
     connection.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

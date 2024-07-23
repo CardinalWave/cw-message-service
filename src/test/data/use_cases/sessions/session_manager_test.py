@@ -1,3 +1,4 @@
+#pylint: disable=unidiomatic-typecheck,redefined-outer-name
 import pytest
 from src.test.infra.db.mocks.session_repository import SessionRepositorySpy
 from src.data.use_cases.sessions.session_manager import SessionManager
@@ -17,7 +18,7 @@ def test_register_session(mock_session):
     repository = SessionRepositorySpy()
     use_case = SessionManager(session_repository=repository)
 
-    response = use_case.register_session(mock_session)
+    use_case.register_session(mock_session)
 
 
 def test_find_session(mock_session):
