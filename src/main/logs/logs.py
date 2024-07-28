@@ -1,9 +1,12 @@
+import datetime
+
 from src.main.logs.log_handler import logger
 from src.domain.models.session import Session
 
 
 def log_session(session: Session, action: str):
     log_payload = {}
+    log_payload['time'] = datetime.datetime.now()
     log_payload['service'] = "cw-message-service:ip_service:0000"
     log_payload['action'] = action
     log_payload['payload'] = session.to_dict()
@@ -13,6 +16,7 @@ def log_session(session: Session, action: str):
 
 def log_error(error, message: str):
     log_payload = {}
+    log_payload['time'] = datetime.datetime.now()
     log_payload['service'] = "cw-message-service:ip_service:0000"
     log_payload['error'] = error
     log_payload['message'] = message
@@ -22,14 +26,17 @@ def log_error(error, message: str):
 
 def log_warring(error, message: str):
     log_payload = {}
+    log_payload['time'] = datetime.datetime.now()
     log_payload['service'] = "cw-message-service:ip_service:0000"
     log_payload['error'] = error
     log_payload['message'] = message
 
     logger.warning(log_payload)
 
+
 def log_critical(error, message: str):
     log_payload = {}
+    log_payload['time'] = datetime.datetime.now()
     log_payload['service'] = "cw-message-service:ip_service:0000"
     log_payload['payload'] = error
     log_payload['payload']['message'] = message
