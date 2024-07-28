@@ -1,0 +1,4 @@
+cw-message-service 192.168.0.1 0000 {'action': 'leave', 'service': 'cw-message-service:ip_service:0000', 'payload': {'session_id': '5259d7df-c0f7-4729-879f-17d1f91c6100', 'device': 'esp8266_01', 'username': 'Lua', 'group_id': 'a1a9f26c-514f-41f0-9df0-2c8eff8fd456'}}
+cw-message-service 192.168.0.1 0000 {'action': 'join', 'service': 'cw-message-service:ip_service:0000', 'payload': {'session_id': '5259d7df-c0f7-4729-879f-17d1f91c6100', 'device': 'esp8266_01', 'username': 'Lua', 'group_id': 'a1a9f26c-514f-41f0-9df0-2c8eff8fd456'}}
+cw-message-service 192.168.0.1 0000 Duplicate register
+cw-message-service 192.168.0.1 0000 Internal server error

@@ -20,7 +20,7 @@ class SessionRepository(SessionRepositoryInterface):
                 database.session.commit()
             except Exception as e:
                 database.session.rollback()
-                raise InternalServerError(str(e)) from e
+                raise InternalServerError('Duplicate register') from e
 
     def delete_session(self, session_id: str):
         with DBConnectionHandler() as database:

@@ -1,9 +1,7 @@
 import socket
 import struct
 import pickle
-
 from loguru import logger
-
 
 class SocketHandler:
 
@@ -18,3 +16,4 @@ class SocketHandler:
         self.sock.send(slen + data)
 
 logger.configure(handlers=[{"sink": SocketHandler('localhost', 9999)}])
+logger.add('log_file.txt', rotation="2 MB")

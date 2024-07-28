@@ -1,3 +1,4 @@
+from src.main.logs.logs import log_error, log_session
 from src.domain.models.message import Message
 from src.domain.models.session import Session
 from src.domain.use_cases.actions.send import SendInterface
@@ -14,9 +15,14 @@ class Send(SendInterface):
         self.__message_manager = message_manager
 
     def user_send(self, session: Session, message: Message):
-        session = self.__find_session(session.session_id)
-        message.group_id = session.group_id
-        self.__send_message(session=session, message=message)
+        try:
+            session = self.__find_session(session_id=session.session_id)
+            message.group_id = session.group_id
+            self.__send_message(session=session, message=message)
+            log_session(session, "send")
+        except BadRequestError as e:
+            log_error(e, e.message)
+            raise BadRequestError('Falha no envio') from e
 
     def __find_session(self, session_id: str) -> Session:
         session = self.__session_manager.find_session(session_id=session_id)

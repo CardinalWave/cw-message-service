@@ -11,6 +11,7 @@ class LeaveController(ControllerInterface):
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
         session_id = http_request.body.get('session_id')
+
         self.__use_case.user_leave(session_id=session_id)
 
         return HttpResponse(

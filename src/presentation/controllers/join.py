@@ -19,7 +19,6 @@ class JoinController(ControllerInterface):
                           device=device,
                           username=username,
                           group_id=group_id)
-
         self.__use_case.user_join(session=session)
 
         return HttpResponse(
