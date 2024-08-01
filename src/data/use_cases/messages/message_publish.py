@@ -10,5 +10,5 @@ class MessagePublish(MessagePublishInterface):
         self.__mqtt_client = mqtt_client
 
     def handle_message(self, session: Session, message: Message):
-        topic = "/{}/{}/{}".format(session.device, session.session_id, session.group_id)
+        topic = "/{}/{}/{}".format("server", session.device, session.session_id)
         self.__mqtt_client.publish_message(topic=topic, message=message.to_json())

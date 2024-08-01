@@ -18,6 +18,7 @@ class Send(SendInterface):
         try:
             session = self.__find_session(session_id=session.session_id)
             message.group_id = session.group_id
+            message.author = session.username
             self.__send_message(session=session, message=message)
             log_session(session, "send")
         except BadRequestError as e:

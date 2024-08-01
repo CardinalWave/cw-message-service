@@ -1,4 +1,4 @@
-from src.main.logs.logs import log_warring
+from src.main.logs.logs import log_warning
 from src.domain.models.session import Session
 from src.domain.use_cases.sessions.session_manager import SessionManagerInterface
 from src.infra.db.interfaces.session_repository import SessionRepositoryInterface
@@ -17,20 +17,20 @@ class SessionManager(SessionManagerInterface):
                                                        username=session.username,
                                                        device=session.device)
         except BadRequestError as e:
-            log_warring(e, "Error to register session")
+            log_warning(e, "Error to register session")
             raise BadRequestError() from e
         except InternalServerError as e:
-            log_warring(e, "Error to register session")
+            log_warning(e, "Error to register session")
             raise InternalServerError() from e
 
     def delete_session(self, session: Session):
         try:
             self.__session_repository.delete_session(session.session_id)
         except BadRequestError as e:
-            log_warring(e, "Error to delete session")
+            log_warning(e, "Error to delete session")
             raise BadRequestError(str(e)) from e
         except InternalServerError as e:
-            log_warring(e, "Error to delete session")
+            log_warning(e, "Error to delete session")
             raise InternalServerError(str(e)) from e
 
     def list_current_sessions(self, group_id: str) -> list[Session]:
@@ -45,7 +45,7 @@ class SessionManager(SessionManagerInterface):
             ]
             return group_current_sessions
         except BadRequestError as e:
-            log_warring(e, "Error to return list")
+            log_warning(e, "Error to return list")
             raise BadRequestError(str(e)) from e
 
     def find_session(self, session_id: str) -> Session:
@@ -57,5 +57,5 @@ class SessionManager(SessionManagerInterface):
                               device=session_entity.device)
             return session
         except Exception as e:
-            log_warring(e, "Error to find session")
+            log_warning(e, "Error to find session")
             raise NotFoundError() from e
