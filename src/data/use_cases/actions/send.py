@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.main.logs.logs import log_error, log_session
 from src.domain.models.message import Message
 from src.domain.models.session import Session
@@ -14,13 +15,11 @@ class Send(SendInterface):
         self.__session_manager = session_manager
         self.__message_manager = message_manager
 
-    def user_send(self, session: Session, message: Message):
+    def user_send(self, session_id: str, message_payload: str):
         try:
-            session = self.__find_session(session_id=session.session_id)
-            message.group_id = session.group_id
-            message.author = session.username
-            self.__send_message(session=session, message=message)
-            log_session(session, "send")
+            session = self.__find_session(session_id=session_id)
+            self.__send_message(session=session, message_payload=message_payload)
+            log_session(session.to_dict(), "send")
         except BadRequestError as e:
             log_error(e, e.message)
             raise BadRequestError('Falha no envio') from e
@@ -31,8 +30,13 @@ class Send(SendInterface):
             raise NotFoundError
         return session
 
-    def __send_message(self, session: Session, message: Message):
+    def __send_message(self, session: Session, message_payload: str):
         try:
+            message = Message(message_id="",
+                              group_id=session.group_id,
+                              author=session.username,
+                              send_time=str(datetime.now()),
+                              payload=message_payload)
             self.__message_manager.forward_message(session=session, message=message)
         except BadRequestError as e:
             raise BadRequestError(str(e)) from BadRequestError

@@ -16,14 +16,8 @@ class SendController(ControllerInterface):
     def handle(self, http_request: HttpRequest) -> HttpResponse:
         session_id = http_request.body.get('session_id')
         payload = http_request.body.get('payload')
-        send_time = datetime.now()
-        message_id = str(uuid1())
-        message = Message(message_id=message_id,
-                          group_id='',
-                          send_time=send_time,
-                          payload=payload,
-                          author='')
-        self.__use_case.user_send(session_id=session_id, message=message)
+        message = payload
+        self.__use_case.user_send(session_id=session_id, message_payload=message)
 
         return HttpResponse(
             status_code=200,
