@@ -4,7 +4,7 @@ from src.domain.use_cases.actions.join import JoinInterface
 from src.domain.use_cases.messages.message_manager import MessageManagerInterface
 from src.domain.use_cases.sessions.session_manager import SessionManagerInterface
 from src.data.erros.domain_errors import BadRequestError
-
+from src.main.logs.logs import log_error, log_session
 
 class Join(JoinInterface):
 
@@ -15,9 +15,9 @@ class Join(JoinInterface):
 
     def user_join(self, session: Session):
         try:
+            log_session(session.to_dict(), 'chat_join')
             self.__session_manager.register_session(session)
             self.__message_manager.inbox(session=session)
-            log_session(session, 'join')
         except Exception as e:
             log_error(e, 'Usuario ja logado')
             raise BadRequestError('Usuario ja logado') from e
