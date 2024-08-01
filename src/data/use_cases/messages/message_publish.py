@@ -5,6 +5,7 @@ from src.domain.models.message import Message
 from src.domain.models.session import Session
 from src.main.logs.logs import log_session
 
+
 class MessagePublish(MessagePublishInterface):
 
     def __init__(self, mqtt_client: MQTTClient):

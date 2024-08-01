@@ -13,7 +13,7 @@ class Leave(LeaveInterface):
         try:
             session = self.__session_manager.find_session(session_id=session_id)
             self.__session_manager.delete_session(session)
-            log_session(session, "leave")
+            log_session(session.to_dict(), "leave")
         except BadRequestError as e:
             log_error(e, e.message)
             raise BadRequestError('Usuario nao encontrado') from e
