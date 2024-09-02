@@ -1,9 +1,11 @@
 import datetime
 from src.main.logs.log_handler import logger
+from src.config.config import Config
 
-SERVICE = "cw-message-service"
-IP = "192.168.15.69"
-PORT = "0000"
+
+SERVICE = Config.CW_MESSAGE_SERVICE
+IP = Config.CW_MESSAGE_SERVICE_IP
+PORT = Config.CW_MESSAGE_SERVICE_PORT
 
 LOCAL_SERVICE = f'{SERVICE}:{IP}:{PORT}'
 
