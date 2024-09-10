@@ -37,7 +37,9 @@ class Send(SendInterface):
                               author=session.username,
                               send_time=str(datetime.now()),
                               payload=message_payload)
-            for _ in self.__session_manager.list_current_sessions(session.group_id):
-                self.__message_manager.forward_message(session=_, message=message)
+            self.__message_manager.save_message(message=message)
+            sessions = self.__session_manager.list_current_sessions(session.group_id)
+            for session_ in sessions:
+                self.__message_manager.forward_message(session=session_, message=message)
         except BadRequestError as e:
             raise BadRequestError(str(e)) from BadRequestError

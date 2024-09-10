@@ -34,13 +34,12 @@ class MessageManager(MessageManagerInterface):
 
     def forward_message(self, session: Session, message: Message):
         try:
-            self.__archive_message(message)
             self.__message_publish.handle_message(session=session, message=message)
             return message
         except BadRequestError as e:
             raise BadRequestError(str(e)) from e
 
-    def __archive_message(self, message: Message):
+    def save_message(self, message: Message):
         try:
             message.message_id = uuid1()
             self.__message_repository.save_message(message)

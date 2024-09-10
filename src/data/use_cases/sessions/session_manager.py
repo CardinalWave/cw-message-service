@@ -36,13 +36,15 @@ class SessionManager(SessionManagerInterface):
     def list_current_sessions(self, group_id: str) -> list[Session]:
         sessions_entity = self.__session_repository.list_sessions()
         try:
-            group_current_sessions = [
-                Session(session_id=session.session_id,
-                        group_id=session.group_id,
-                        username=session.username,
-                        device=session.device)
-                for session in sessions_entity if session.group_id == group_id
-            ]
+            group_current_sessions = []
+            for session in sessions_entity:
+                if session.group_id == group_id:
+                    session_obj = Session(session_id=session.session_id,
+                                          device=session.device,
+                                          username=session.username,
+                                          group_id=session.group_id)
+                    group_current_sessions.append(session_obj)
+                    print(group_current_sessions)
             return group_current_sessions
         except BadRequestError as e:
             log_warning(e, "Error to return list")

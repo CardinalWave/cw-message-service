@@ -26,5 +26,6 @@ class MessagePublish(MessagePublishInterface):
                 "payload": message.payload
             }
         })
-        log_session(session=params, action="publish_message")
-        self.__mqtt_client.publish_message(topic=topic, message=params)
+        if self.__mqtt_client:
+            self.__mqtt_client.publish_message(topic=topic, message=params)
+            log_session(session=f'{params} - {topic}', action="publish_message")
