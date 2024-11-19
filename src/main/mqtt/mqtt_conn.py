@@ -1,3 +1,4 @@
+#pylint: disable=no-else-return
 import time
 import paho.mqtt.client as mqtt
 

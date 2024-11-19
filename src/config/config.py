@@ -1,3 +1,5 @@
+#pylint: disable=invalid-envvar-default
+
 import configparser
 import os
 
@@ -19,7 +21,7 @@ class Config:
     CW_MESSAGE_SERVICE_URL = config['CW_MESSAGE_SERVICE']['BaseURL']
     CW_MESSAGE_SERVICE_IP = config['CW_MESSAGE_SERVICE']['IP']
     CW_MESSAGE_SERVICE_PORT = int(config['CW_MESSAGE_SERVICE']['PORT'])
-    
+
     CW_MESSAGE_DB = config['CW_MESSAGE_DB']['URL']
     CW_MESSAGE_DB_USER = config['CW_MESSAGE_DB']['USER']
     CW_MESSAGE_DB_PASS = config['CW_MESSAGE_DB']['PASS']

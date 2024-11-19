@@ -1,15 +1,17 @@
 import json
+
+from src.main.logs.logs_interface import LogInterface
 from src.main.mqtt.mqtt_conn import MQTTClient
 from src.domain.use_cases.messages.message_publish import MessagePublishInterface
 from src.domain.models.message import Message
 from src.domain.models.session import Session
-from src.main.logs.logs import log_session
 
 
 class MessagePublish(MessagePublishInterface):
 
-    def __init__(self, mqtt_client: MQTTClient):
+    def __init__(self, mqtt_client: MQTTClient, logger: LogInterface):
         self.__mqtt_client = mqtt_client
+        self.__logger = logger
 
     def handle_message(self, session: Session, message: Message):
         topic = "/{}/{}/{}".format("server", session.device, session.session_id)
@@ -26,5 +28,5 @@ class MessagePublish(MessagePublishInterface):
                 "payload": message.payload
             }
         })
-        log_session(session=params, action="publish_message")
+        self.__logger.log_session(session=params, action="publish_message")
         self.__mqtt_client.publish_message(topic=topic, message=params)
