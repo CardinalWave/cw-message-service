@@ -4,6 +4,7 @@ from src.data.use_cases.messages.message_manager import MessageManager
 from src.test.infra.db.mocks.message_repository import MessageRepositorySpy
 from src.test.data.mocks.message_publish_mock import MessagePublishSpy
 from src.domain.models.session import Session
+from src.test.main.logs import LogSpy
 
 
 @pytest.fixture
@@ -17,5 +18,9 @@ def mock_session():
 def test_inbox(mock_session):
     message_publish = MessagePublishSpy()
     repository = MessageRepositorySpy()
-    use_case = MessageManager(message_repository=repository, message_publish=message_publish)
+    logger_spy = LogSpy()
+
+    use_case = MessageManager(message_repository=repository,
+                              message_publish=message_publish,
+                              logger=logger_spy)
     use_case.inbox(mock_session)

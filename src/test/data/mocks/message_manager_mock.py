@@ -23,3 +23,5 @@ class MessageManagerSpy(MessageManagerInterface):
         return messages
 
     def forward_message(self, session: Session, message: Message): pass
+
+    def save_message(self, message: Message): pass

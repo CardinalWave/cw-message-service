@@ -10,3 +10,6 @@ class MessageManagerInterface(ABC):
 
     @abstractmethod
     def forward_message(self, session: Session, message: Message): pass
+
+    @abstractmethod
+    def save_message(self, message: Message): pass
